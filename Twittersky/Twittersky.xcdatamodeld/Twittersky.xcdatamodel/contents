@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Ban" representedClassName="Ban" syncable="YES" codeGenerationType="class">
+        <attribute name="from" optional="YES" attributeType="Date" defaultDateTimeInterval="633830880" usesScalarValueType="NO"/>
+        <attribute name="reason" attributeType="String" defaultValueString="default reason"/>
+        <attribute name="to" optional="YES" attributeType="Date" defaultDateTimeInterval="633830880" usesScalarValueType="NO"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="bans" inverseEntity="User"/>
+    </entity>
+    <entity name="City" representedClassName="City" syncable="YES" codeGenerationType="class">
+        <attribute name="country" optional="YES" attributeType="String" maxValueString="30"/>
+        <attribute name="name" optional="YES" attributeType="String" maxValueString="20"/>
+        <relationship name="users" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="city" inverseEntity="User"/>
+    </entity>
+    <entity name="Tweet" representedClassName="Tweet" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" maxValueString="255"/>
+        <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="633538680" usesScalarValueType="NO"/>
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="tweets" inverseEntity="User"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tweet" inverseName="replies" inverseEntity="Tweet"/>
+        <relationship name="replies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tweet" inverseName="parent" inverseEntity="Tweet"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="avatarUrl" optional="YES" attributeType="String" maxValueString="255"/>
+        <attribute name="biography" optional="YES" attributeType="String" maxValueString="255"/>
+        <attribute name="fullName" optional="YES" attributeType="String" maxValueString="50"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="login" attributeType="String" defaultValueString="anonymous"/>
+        <attribute name="password" attributeType="String" defaultValueString="alpine"/>
+        <attribute name="registrationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="role" optional="YES" attributeType="String" defaultValueString="user"/>
+        <relationship name="bannedBy" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="bannedUsers" inverseEntity="User"/>
+        <relationship name="bannedUsers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="bannedBy" inverseEntity="User"/>
+        <relationship name="bans" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ban" inverseName="user" inverseEntity="Ban"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="users" inverseEntity="City"/>
+        <relationship name="followers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="follows" inverseEntity="User"/>
+        <relationship name="follows" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="User" inverseName="followers" inverseEntity="User"/>
+        <relationship name="tweets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tweet" inverseName="author" inverseEntity="Tweet"/>
+    </entity>
+    <elements>
+        <element name="City" positionX="10603.17761230469" positionY="178.4117736816406" width="128" height="88"/>
+        <element name="Tweet" positionX="10357.23449707031" positionY="605.7835388183594" width="128" height="104"/>
+        <element name="User" positionX="10263.52319335938" positionY="213.2721862792969" width="128" height="268"/>
+        <element name="Ban" positionX="10612.69396972656" positionY="349.1311645507812" width="128" height="103"/>
+    </elements>
+</model>
